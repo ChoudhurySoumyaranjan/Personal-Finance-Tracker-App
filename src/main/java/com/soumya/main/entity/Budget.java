@@ -1,17 +1,8 @@
 package com.soumya.main.entity;
 
-import com.soumya.main.dtos.YearMonthStringConverter;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.Data;
-
 import java.math.BigDecimal;
-import java.time.YearMonth;
-
-import jakarta.persistence.*;
-import java.time.YearMonth;
-import java.math.BigDecimal;
-import jakarta.validation.constraints.*;
 
 
 @Entity

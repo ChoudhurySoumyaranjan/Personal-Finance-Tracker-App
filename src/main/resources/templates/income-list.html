@@ -1,122 +1,373 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Income Management</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <header th:replace="~{fragments/header :: header}"></header>
-        <div class="inc-page-wrapper">
-            <main class="inc-main-content">
-                <div class="inc-header-section">
-                    <h1 class="inc-page-title">Your Incomes</h1>
-                    <a th:href="@{/incomes/add}" class="inc-btn inc-btn-primary inc-btn-add">
-                        <i class="fas fa-plus"></i> Add New Income
-                    </a>
-                </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Income Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3f37c9;
+            --danger: #e63946;
+            --warning: #f4a261;
+            --light-bg: #f8f9fc;
+            --card-bg: #ffffff;
+            --text-muted: #6c757d;
+        }
 
-                <div class="inc-filter-card">
-                    <form th:action="@{/incomes}" method="get" class="inc-filter-form">
-                        <div class="inc-filter-grid">
-                            <div class="inc-form-group">
-                                <label for="startDate" class="inc-form-label">Start Date</label>
-                                <input type="date"
-                                       name="startDate"
-                                       th:value="${startDate}"
-                                       class="inc-input inc-date-input"
-                                       id="startDate"/>
-                            </div>
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #333;
+            min-height: 100vh;
+        }
 
-                            <div class="inc-form-group">
-                                <label for="endDate" class="inc-form-label">End Date</label>
-                                <input type="date"
-                                       name="endDate"
-                                       th:value="${endDate}"
-                                       class="inc-input inc-date-input"
-                                       id="endDate"/>
-                            </div>
+        .inc-page-container-2025 {
+            padding: 1.5rem 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-                            <div class="inc-form-group">
-                                <label for="source" class="inc-form-label">Source</label>
-                                <select name="source" class="inc-input inc-select" id="source">
-                                    <option value="">All Sources</option>
-                                    <option th:each="src : ${sources}"
-                                            th:value="${src}"
-                                            th:text="${src}"
-                                            th:selected="${selectedSource == src}"></option>
-                                </select>
-                            </div>
+        .inc-header-section-2025 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
-                            <div class="inc-form-group inc-filter-actions">
-                                <button type="submit" class="inc-btn inc-btn-filter">
-                                    <i class="fas fa-filter"></i> Filter
-                                </button>
-                                <a th:href="@{/incomes}" class="inc-btn inc-btn-secondary inc-btn-clear">
-                                    Clear
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+        .inc-page-title-2025 {
+            margin: 0;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
 
-                <div class="inc-table-container">
-                    <table class="inc-income-table">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Amount</th>
-                            <th>Source</th>
-                            <th>Date</th>
-                            <th>Frequency</th>
-                            <th>Description</th>
-                            <th class="inc-actions-col">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="income : ${incomes}"
-                            th:classappend="${#lists.isEmpty(incomes)} ? 'inc-empty-row' : ''">
-                            <td th:text="${income.id}"></td>
-                            <td class="inc-amount-cell" th:text="${income.amount}"></td>
-                            <td th:text="${income.source}"></td>
-                            <td th:text="${income.date}"></td>
-                            <td th:text="${income.frequency}"></td>
-                            <td class="inc-desc-cell" th:text="${income.description}"></td>
-                            <td class="inc-actions-cell">
-                                <a th:href="@{/incomes/edit/{id}(id=${income.id})}"
-                                   class="inc-btn inc-btn-sm inc-btn-warning"
-                                   title="Edit income">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a th:href="@{/incomes/delete/{id}(id=${income.id})}"
-                                   class="inc-btn inc-btn-sm inc-btn-danger"
-                                   onclick="return confirm('Are you sure you want to delete this income?')"
-                                   title="Delete income">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
-                        </tr>
+        .inc-btn-add-new-2025 {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.65rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-                        <tr th:if="${#lists.isEmpty(incomes)}" class="inc-no-data-row">
-                            <td colspan="7" class="inc-no-data">
-                                <div class="inc-no-data-content">
-                                    <i class="far fa-folder-open fa-3x"></i>
-                                    <p>No incomes found matching your criteria</p>
-                                    <a th:href="@{/incomes/add}" class="inc-btn inc-btn-primary inc-btn-sm">
-                                        Add your first income
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </main>
+        .inc-btn-add-new-2025:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67,97,238,0.3);
+        }
+
+        .inc-filter-panel-2025 {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .inc-filter-grid-2025 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .inc-form-group-unique {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .inc-form-label-2025 {
+            font-weight: 500;
+            color: #444;
+            font-size: 0.95rem;
+        }
+
+        .inc-input-field-2025,
+        .inc-select-field-2025 {
+            padding: 0.65rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .inc-input-field-2025:focus,
+        .inc-select-field-2025:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67,97,238,0.15);
+        }
+
+        .inc-filter-btn-group-2025 {
+            display: flex;
+            gap: 0.75rem;
+            align-self: flex-end;
+        }
+
+        .inc-btn-filter-2025,
+        .inc-btn-clear-2025 {
+            padding: 0.65rem 1.4rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .inc-btn-filter-2025 {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .inc-btn-filter-2025:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .inc-btn-clear-2025 {
+            background-color: #e5e7eb;
+            color: #374151;
+            border: none;
+            text-decoration: none;
+        }
+
+        .inc-btn-clear-2025:hover {
+            background-color: #d1d5db;
+        }
+
+        .inc-table-wrapper-2025 {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .inc-income-table-2025 {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 0;
+        }
+
+        .inc-income-table-2025 th,
+        .inc-income-table-2025 td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+        }
+
+        .inc-income-table-2025 thead {
+            background-color: #f1f5f9;
+        }
+
+        .inc-income-table-2025 th {
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 0.95rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .inc-income-table-2025 tbody tr {
+            border-bottom: 1px solid #f1f1f1;
+            transition: background-color 0.15s;
+        }
+
+        .inc-income-table-2025 tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .inc-amount-cell-2025 {
+            font-weight: 600;
+            color: #15803d;
+        }
+
+        .inc-actions-cell-2025 {
+            white-space: nowrap;
+        }
+
+        .inc-btn-action-sm-2025 {
+            width: 38px;
+            height: 38px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            margin-right: 0.5rem;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .inc-btn-action-sm-2025:hover {
+            transform: translateY(-1px);
+        }
+
+        .inc-btn-edit-2025 {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .inc-btn-edit-2025:hover {
+            background-color: #fde68a;
+        }
+
+        .inc-btn-delete-2025 {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .inc-btn-delete-2025:hover {
+            background-color: #fecaca;
+        }
+
+        .inc-no-data-container-2025 {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .inc-no-data-icon-2025 {
+            font-size: 3.5rem;
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .inc-header-section-2025 {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .inc-filter-grid-2025 {
+                grid-template-columns: 1fr;
+            }
+
+            .inc-filter-btn-group-2025 {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .inc-btn-filter-2025,
+            .inc-btn-clear-2025 {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="inc-page-container-2025">
+
+    <main>
+        <div class="inc-header-section-2025">
+            <h1 class="inc-page-title-2025">Your Incomes</h1>
+            <a th:href="@{/incomes/add}" class="inc-btn-add-new-2025">
+                <i class="fas fa-plus"></i> Add New Income
+            </a>
         </div>
-        <footer th:replace="~{fragments/footer :: footer}"></footer>
-    </body>
+
+        <div class="inc-filter-panel-2025">
+            <form th:action="@{/incomes}" method="get" class="inc-filter-form">
+                <div class="inc-filter-grid-2025">
+                    <div class="inc-form-group-unique">
+                        <label for="startDateX" class="inc-form-label-2025">Start Date</label>
+                        <input type="date" name="startDate" th:value="${startDate}"
+                               class="inc-input-field-2025" id="startDateX"/>
+                    </div>
+
+                    <div class="inc-form-group-unique">
+                        <label for="endDateX" class="inc-form-label-2025">End Date</label>
+                        <input type="date" name="endDate" th:value="${endDate}"
+                               class="inc-input-field-2025" id="endDateX"/>
+                    </div>
+
+                    <div class="inc-form-group-unique">
+                        <label for="sourceX" class="inc-form-label-2025">Source</label>
+                        <select name="source" class="inc-select-field-2025" id="sourceX">
+                            <option value="">All Sources</option>
+                            <option th:each="src : ${sources}"
+                                    th:value="${src}"
+                                    th:text="${src}"
+                                    th:selected="${selectedSource == src}"></option>
+                        </select>
+                    </div>
+
+                    <div class="inc-filter-btn-group-2025">
+                        <button type="submit" class="inc-btn-filter-2025">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                        <a th:href="@{/incomes}" class="inc-btn-clear-2025">
+                            Clear
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="inc-table-wrapper-2025">
+            <table class="inc-income-table-2025">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Amount</th>
+                    <th>Source</th>
+                    <th>Date</th>
+                    <th>Frequency</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="income : ${incomes}">
+                    <td th:text="${income.id}"></td>
+                    <td class="inc-amount-cell-2025" th:text="${income.amount}"></td>
+                    <td th:text="${income.source}"></td>
+                    <td th:text="${income.date}"></td>
+                    <td th:text="${income.frequency}"></td>
+                    <td th:text="${income.description}"></td>
+                    <td class="inc-actions-cell-2025">
+                        <a th:href="@{/incomes/edit/{id}(id=${income.id})}"
+                           class="inc-btn-action-sm-2025 inc-btn-edit-2025"
+                           title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a th:href="@{/incomes/delete/{id}(id=${income.id})}"
+                           class="inc-btn-action-sm-2025 inc-btn-delete-2025"
+                           onclick="return confirm('Are you sure you want to delete this income?')"
+                           title="Delete">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(incomes)}">
+                    <td colspan="7" class="inc-no-data-container-2025">
+                        <div>
+                            <i class="far fa-folder-open inc-no-data-icon-2025"></i>
+                            <p style="font-size:1.25rem; margin:1rem 0 1.5rem;">No incomes found</p>
+                            <a th:href="@{/incomes/add}" class="inc-btn-add-new-2025" style="font-size:0.95rem; padding:0.7rem 1.3rem;">
+                                Add your first income
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
 </html>

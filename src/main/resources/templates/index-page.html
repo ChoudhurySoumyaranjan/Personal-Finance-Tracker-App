@@ -2,145 +2,243 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Fast Finance Tracker</title>
 
+    <!-- Icons & Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" href="style.css">
     <style>
+        :root {
+            --primary: #5e60ce;
+            --primary-dark: #4d4fc2;
+            --gradient: linear-gradient(135deg, #5e60ce 0%, #48bfe3 100%);
+            --light-bg: #f8f9fc;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--light-bg);
+            color: #1a1a2e;
+        }
+
+        /* Hero */
         .hero-section {
-            background: linear-gradient(135deg, #0d6efd, #6610f2);
-            padding: 5rem 0;
+            background: var(--gradient);
+            color: white;
+            padding: 8rem 0 10rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .hero-icon {
-            font-size: 15rem;
-            opacity: 0.25;
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.12) 0%, transparent 40%);
+            pointer-events: none;
         }
 
+        .hero-title {
+            font-size: clamp(2.8rem, 7vw, 4.8rem);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            font-weight: 300;
+            opacity: 0.95;
+            max-width: 540px;
+        }
+
+        .hero-wallet {
+            font-size: clamp(12rem, 35vw, 22rem);
+            opacity: 0.18;
+            position: absolute;
+            right: -8%;
+            bottom: -20%;
+            transform: rotate(-12deg);
+        }
+
+        /* Features */
         .feature-card {
-            background: #fff;
+            background: white;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
+            padding: 2.25rem 1.75rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+            transition: all 0.32s ease;
+            height: 100%;
+            border: 1px solid rgba(0,0,0,0.04);
         }
 
         .feature-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(94,96,206,0.18);
         }
 
         .feature-icon {
-            font-size: 3rem;
+            font-size: 3.4rem;
+            margin-bottom: 1.25rem;
+            display: block;
+        }
+
+        .feature-title {
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #0f172a;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            background: white;
+            padding: 4rem 0;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .action-btn {
+            min-width: 180px;
+            padding: 0.95rem 1.6rem;
+            font-weight: 600;
+            border-width: 2px;
+            transition: all 0.25s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        @media (max-width: 992px) {
+            .hero-section {
+                padding: 6rem 0 8rem;
+            }
+            .hero-wallet {
+                right: -20%;
+                bottom: -30%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
-
 <body>
 
 <!-- Header -->
 <div th:replace="~{fragments/header :: header}"></div>
 
-<!-- HERO SECTION -->
-<section class="hero-section text-white">
-    <div class="container">
-        <div class="row align-items-center min-vh-75">
-            <div class="col-lg-6 text-center text-lg-start">
-                <h1 class="display-4 fw-bold mb-3">
-                    Take Control of<br>Your <span class="text-warning">Money</span>
+<!-- HERO -->
+<section class="hero-section position-relative">
+    <div class="container position-relative">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="hero-title">
+                    Take Control of<br>Your <span class="text-warning">Finances</span>
                 </h1>
-                <p class="lead opacity-90 mb-4">
-                    Track income, expenses, and budgets in one secure place.
-                    Gain insights and build better financial habits.
+                <p class="hero-subtitle mb-5">
+                    Track income, expenses & budgets in one beautiful, secure place.
+                    Understand your money and build better financial habits — effortlessly.
                 </p>
 
                 <th:block sec:authorize="!isAuthenticated()">
-                    <a th:href="@{/signIn}" class="btn btn-warning btn-lg px-4 me-3">
-                        Get Started
+                    <a th:href="@{/signIn}" class="btn btn-warning btn-lg px-5 py-3 fw-bold shadow-lg">
+                        Get Started — It's Free
                     </a>
                 </th:block>
-
             </div>
 
-            <div class="col-lg-6 text-center mt-5 mt-lg-0">
-                <i class="bi bi-wallet2 hero-icon"></i>
+            <div class="col-lg-6 d-none d-lg-block">
+                <i class="bi bi-wallet2 hero-wallet"></i>
             </div>
         </div>
     </div>
 </section>
 
 <!-- FEATURES -->
-<section class="py-5 bg-light">
+<section class="py-5 py-lg-5 bg-white">
     <div class="container">
-        <h2 class="text-center fw-bold mb-5">What You Can Do</h2>
+        <h2 class="text-center fw-bold mb-5 display-5" style="color:#0f172a;">
+            Everything You Need to Master Your Money
+        </h2>
 
-        <div class="row g-4">
-            <div class="col-md-3">
-                <a href="/incomes" class="text-decoration-none text-dark d-block">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-arrow-down-circle feature-icon text-success"></i>
-                    <h5 class="mt-3">Track Income</h5>
-                    <p class="text-muted">Log salaries, freelancing, and other income sources.</p>
-                </div>
-                </a>
-            </div>
-                <div class="col-md-3">
-                    <a href="/expenses" class="text-decoration-none text-dark d-block">
-                        <div class="feature-card text-center p-4 h-100">
-                            <i class="bi bi-arrow-up-circle feature-icon text-danger"></i>
-                            <h5 class="mt-3">Track Expenses</h5>
-                            <p class="text-muted">Understand where your money goes every month.</p>
-                        </div>
-                    </a>
-                </div>
-
-            <div class="col-md-3">
-                <a href="/budgets" class="text-decoration-none text-dark d-block">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-pie-chart-fill feature-icon text-primary"></i>
-                    <h5 class="mt-3">Budgets</h5>
-                    <p class="text-muted">Set limits and stay on top of your spending.</p>
-                </div>
+        <div class="row g-4 g-lg-5">
+            <div class="col-md-6 col-lg-3">
+                <a href="/incomes" class="text-decoration-none">
+                    <div class="feature-card text-center">
+                        <i class="bi bi-arrow-down-circle-fill feature-icon text-success"></i>
+                        <h5 class="feature-title">Track Income</h5>
+                        <p class="text-muted">Salaries, freelancing, investments, gifts — log everything easily.</p>
+                    </div>
                 </a>
             </div>
 
-            <div class="col-md-3">
-                <a href="/transactions" class="text-decoration-none text-dark d-block">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-graph-up-arrow feature-icon text-warning"></i>
-                    <h5 class="mt-3">Transactions</h5>
-                    <p class="text-muted">financial progress.</p>
-                </div>
+            <div class="col-md-6 col-lg-3">
+                <a href="/expenses" class="text-decoration-none">
+                    <div class="feature-card text-center">
+                        <i class="bi bi-arrow-up-circle-fill feature-icon text-danger"></i>
+                        <h5 class="feature-title">Track Expenses</h5>
+                        <p class="text-muted">See exactly where your money goes — every rupee counts.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <a href="/budgets" class="text-decoration-none">
+                    <div class="feature-card text-center">
+                        <i class="bi bi-pie-chart-fill feature-icon text-primary"></i>
+                        <h5 class="feature-title">Smart Budgets</h5>
+                        <p class="text-muted">Set limits, get alerts, and stay in control of your spending.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <a href="/transactions" class="text-decoration-none">
+                    <div class="feature-card text-center">
+                        <i class="bi bi-graph-up-arrow feature-icon text-warning"></i>
+                        <h5 class="feature-title">Full History</h5>
+                        <p class="text-muted">Clear overview of all transactions & financial progress.</p>
+                    </div>
                 </a>
             </div>
         </div>
     </div>
 </section>
+
+<!-- QUICK ACTIONS for logged-in users -->
 <th:block sec:authorize="isAuthenticated()">
-    <section class="py-5">
+    <section class="quick-actions">
         <div class="container text-center">
-            <h2 class="fw-bold mb-4">Quick Actions</h2>
+            <h2 class="fw-bold mb-5" style="color:#0f172a;">
+                Jump Right In
+            </h2>
 
-            <a th:href="@{/expenses}" class="btn btn-outline-primary btn-lg m-2">
-                <i class="bi bi-cash-stack me-2"></i>Expenses
-            </a>
-
-            <a th:href="@{/incomes}" class="btn btn-outline-success btn-lg m-2">
-                <i class="bi bi-currency-rupee me-2"></i>Incomes
-            </a>
-
-            <a th:href="@{/transactions}" class="btn btn-outline-dark btn-lg m-2">
-                <i class="bi bi-list-ul me-2"></i>Transactions
-            </a>
-
-            <a th:href="@{/budgets}" class="btn btn-outline-warning btn-lg m-2">
-                <i class="bi bi-wallet me-2"></i>Budgets
-            </a>
+            <div class="d-flex flex-wrap justify-content-center gap-3 gap-md-4">
+                <a th:href="@{/expenses}" class="btn btn-outline-primary action-btn">
+                    <i class="bi bi-cash-stack me-2"></i> Expenses
+                </a>
+                <a th:href="@{/incomes}" class="btn btn-outline-success action-btn">
+                    <i class="bi bi-currency-rupee me-2"></i> Incomes
+                </a>
+                <a th:href="@{/transactions}" class="btn btn-outline-dark action-btn">
+                    <i class="bi bi-list-ul me-2"></i> Transactions
+                </a>
+                <a th:href="@{/budgets}" class="btn btn-outline-warning action-btn">
+                    <i class="bi bi-wallet me-2"></i> Budgets
+                </a>
+            </div>
         </div>
     </section>
 </th:block>
