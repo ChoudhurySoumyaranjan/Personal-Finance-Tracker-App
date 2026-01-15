@@ -1,0 +1,572 @@
+        :root {
+            --finance-primary: #0d6efd;
+            --finance-primary-dark: #0a58ca;
+            --finance-light: #e7f1ff;
+        }
+
+        body {
+            background: var(--finance-light);
+            color: #222;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .finance-navbar {
+            background: var(--finance-primary) !important;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+        }
+
+        .finance-hero-section {
+            background: linear-gradient(135deg, var(--finance-primary) 0%, var(--finance-primary-dark) 100%);
+            color: white;
+            padding: 9rem 0 7rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .finance-hero-section::before {
+            content: "";
+            position: absolute;
+            inset: -50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 65%);
+            animation: subtleFloat 18s infinite linear;
+        }
+
+        @keyframes subtleFloat {
+            0%   { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(25%, 20%) rotate(360deg); }
+        }
+
+        .finance-wallet-icon {
+            font-size: 7.5rem;
+            margin-bottom: 1.8rem;
+            animation: gentleBounce 3.8s infinite;
+        }
+
+        @keyframes gentleBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-25px); }
+            60% { transform: translateY(-12px); }
+        }
+
+        .finance-store-btn {
+            height: 62px;
+            border-radius: 14px;
+            padding: 0.6rem 1.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .finance-store-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+        }
+
+        .finance-glance-card {
+            border: none;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(13,110,253,0.18);
+            transition: transform 0.35s ease;
+        }
+
+        .finance-glance-card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* simple-auth.css - Minimal & clean login/register styling */
+
+        .ft-body-bg {
+            background: #f8fbff;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacOSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .ft-login-wrapper {
+            max-width: 380px;
+            width: 100%;
+            margin: 80px auto 40px;
+            padding: 0 15px;
+        }
+
+        .ft-login-box {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .ft-login-header {
+            background: #0066ff;
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        .ft-login-header h2 {
+            margin: 0;
+            font-size: 1.55rem;
+            font-weight: 600;
+        }
+
+        .ft-login-header p {
+            margin: 8px 0 0;
+            opacity: 0.9;
+            font-size: 0.92rem;
+        }
+
+        .ft-login-body {
+            padding: 32px 28px 40px;
+        }
+
+        .ft-form-group {
+            margin-bottom: 24px;
+        }
+
+        .ft-form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+            font-size: 0.95rem;
+        }
+
+        .ft-input-group {
+            position: relative;
+        }
+
+        .ft-input-group i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .ft-form-control {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            border: 1px solid #d0d7e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .ft-form-control:focus {
+            outline: none;
+            border-color: #0066ff;
+            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.12);
+        }
+
+        .ft-remember {
+            display: flex;
+            align-items: center;
+            margin: 20px 0 28px;
+            font-size: 0.94rem;
+            color: #555;
+        }
+
+        .ft-remember input {
+            margin-right: 10px;
+        }
+
+        .ft-btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: #0066ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.02rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .ft-btn-primary:hover {
+            background: #0055dd;
+        }
+
+        .ft-footer-text {
+            text-align: center;
+            margin-top: 24px;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .ft-footer-text a {
+            color: #0066ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .ft-footer-text a:hover {
+            text-decoration: underline;
+        }
+
+        .expense-container {
+            max-width: 800px; margin: 40px auto;
+        }
+        .expense-card {
+            border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .expense-header {
+            background: linear-gradient(135deg, #007bff, #0056b3); padding: 20px;
+        }
+        .expense-header h1 {
+            font-size: 1.75rem;
+           }
+        .expense-body {
+            padding: 30px; background: #ffffff;
+        }
+        .expense-form-group {
+            margin-bottom: 1.5rem; position: relative;
+        }
+        .expense-form-group .form-label {
+            font-weight: 600; color: #333;
+        }
+        .expense-form-group .form-control:focus, .expense-form-group .form-select:focus {
+            border-color: #007bff; box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        }
+        .expense-error {
+            color: #dc3545; font-size: 0.875em; display: block; margin-top: 0.25rem;
+
+        }
+        .expense-textarea {
+            resize: vertical; min-height: 80px;
+        }
+        .expense-actions {
+            display: flex; justify-content: space-between; align-items: center; margin-top: 20px;
+        }
+        .expense-btn-save {
+            padding: 12px 24px; font-weight: bold;
+
+        }
+        .expense-btn-cancel {
+            padding: 12px 24px; font-weight: bold;
+        }
+
+        .expense-list-container { max-width: 1200px; margin: 40px auto; }
+            .expense-list-card { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); }
+            .expense-list-header { background: linear-gradient(135deg, #007bff, #0056b3); padding: 20px; }
+            .expense-list-header h1 { font-size: 1.75rem; }
+            .expense-list-body { padding: 30px; background: #ffffff; }
+            .expense-filter-form { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; align-items: flex-end; }
+            .expense-filter-group { flex: 1; min-width: 200px; position: relative; }
+            .expense-filter-group .form-label { font-weight: 600; color: #333; }
+            .expense-filter-group .form-control:focus, .expense-filter-group .form-select:focus { border-color: #007bff; box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); }
+            .expense-table { font-size: 0.95rem; }
+            .expense-table th { background: #f8f9fa; text-align: left; }
+            .expense-table td { vertical-align: middle; }
+            .expense-actions-col a { text-decoration: none; margin-right: 10px; }
+            .expense-btn-add, .expense-btn-filter, .expense-btn-clear { padding: 10px 20px; font-weight: bold; }
+            .expense-no-data { text-align: center; color: #6c757d; font-style: italic; }
+
+        .inc-page-wrapper {
+            min-height: 100vh;
+            background: #f8f9fc;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .inc-main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 3rem;
+        }
+
+        .inc-header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .inc-page-title {
+            margin: 0;
+            color: #2d3748;
+            font-weight: 700;
+            font-size: 2.1rem;
+        }
+
+        .inc-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .inc-btn-primary     { background: #6366f1; color: white; }
+        .inc-btn-primary:hover { background: #4f46e5; transform: translateY(-1px); }
+        .inc-btn-secondary   { background: #6b7280; color: white; }
+        .inc-btn-secondary:hover { background: #4b5563; }
+        .inc-btn-warning     { background: #f59e0b; color: white; }
+        .inc-btn-warning:hover { background: #d97706; }
+        .inc-btn-danger      { background: #ef4444; color: white; }
+        .inc-btn-danger:hover { background: #dc2626; }
+
+        .inc-btn-add         { padding: 0.8rem 1.5rem; font-size: 1.05rem; }
+        .inc-btn-sm          { padding: 0.45rem 0.9rem; font-size: 0.9rem; }
+        .inc-btn-filter      { background: #4f46e5; }
+        .inc-btn-clear       { background: #9ca3af; }
+
+        .inc-filter-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .inc-filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem 1.5rem;
+        }
+
+        .inc-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .inc-form-label {
+            font-weight: 600;
+            color: #4b5563;
+            font-size: 0.9rem;
+        }
+
+        .inc-input, .inc-select {
+            padding: 0.65rem 0.9rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .inc-input:focus, .inc-select:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+        }
+
+        .inc-filter-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-end;
+        }
+
+        .inc-table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .inc-income-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .inc-income-table th,
+        .inc-income-table td {
+            padding: 1rem 1.1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .inc-income-table th {
+            background: #f3f4f6;
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .inc-amount-cell {
+            font-weight: 600;
+            color: #059669;
+        }
+
+        .inc-actions-cell {
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .inc-actions-col {
+            width: 140px;
+            text-align: center;
+        }
+
+        .inc-no-data {
+            padding: 4rem 1rem;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        .inc-no-data-content i {
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+
+        .inc-no-data-content p {
+            margin: 0.5rem 0 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .inc-page-wrapper { min-height: 100vh; background: #f8f9fc; }
+        .inc-main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+        }
+
+        .inc-form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .inc-page-title {
+            margin: 0;
+            color: #1f2937;
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .inc-page-title i { color: #6366f1; }
+        .inc-form-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            padding: 2.25rem;
+        }
+
+        .inc-income-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .inc-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem 2rem;
+        }
+
+        .inc-col-span-2 { grid-column: span 2; }
+
+        .inc-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .inc-form-label {
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.95rem;
+        }
+
+        .inc-input, .inc-select, .inc-textarea {
+            padding: 0.7rem 0.95rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .inc-input:focus, .inc-select:focus, .inc-textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+        }
+
+        .inc-input-amount {
+            padding-left: 2.6rem;
+        }
+
+        .inc-input-wrapper {
+            position: relative;
+        }
+
+        .inc-input-prefix {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            pointer-events: none;
+        }
+
+        .inc-textarea {
+            resize: vertical;
+            min-height: 96px;
+        }
+
+        .inc-error-message {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+        .inc-form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .inc-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .inc-btn-primary {
+            background: #6366f1;
+            color: white;
+        }
+
+        .inc-btn-primary:hover {
+            background: #4f46e5;
+            transform: translateY(-1px);
+        }
+
+        .inc-btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .inc-btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .inc-btn-save {
+            padding: 0.8rem 1.8rem;
+            font-size: 1.05rem;
+        }
+
+        .inc-btn-back {
+            padding: 0.6rem 1.2rem;
+        }

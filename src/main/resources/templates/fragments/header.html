@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+    <body>
+
+    <div th:fragment="header">
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm"
+             style="background: linear-gradient(to right, #1e40af, #3b82f6);">
+            <div class="container">
+                <!-- Brand -->
+                <a class="navbar-brand d-flex align-items-center fw-bold fs-4" href="/">
+                    <i class="bi bi-wallet2 me-2 fs-3 text-warning"></i>
+                    Finance Tracker
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarMain" aria-controls="navbarMain"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav ms-auto align-items-center">
+
+                        <!-- Everyone sees Home -->
+                        <li class="nav-item">
+                            <a class="nav-link px-3 text-white" href="/">Home</a>
+                        </li>
+
+                        <!-- Not logged in -->
+                        <th:block sec:authorize="!isAuthenticated()">
+                            <li class="nav-item ms-lg-4">
+                                <a th:href="@{/signIn}"
+                                   class="btn btn-outline-light px-4 py-2 rounded-pill">
+                                    Sign In
+                                </a>
+                            </li>
+                            <li class="nav-item ms-2">
+                                <a th:href="@{/register}"
+                                   class="btn btn-light text-primary fw-medium px-4 py-2 rounded-pill">
+                                    Sign Up
+                                </a>
+                            </li>
+                        </th:block>
+
+                        <!-- Logged in users -->
+                        <th:block sec:authorize="isAuthenticated()">
+                            <!-- Profile link - placed early for easy access -->
+                            <li class="nav-item ms-lg-3">
+                                <a th:href="@{/user/profile}"
+                                   class="btn btn-outline-light px-3 py-2 rounded d-flex align-items-center gap-2">
+                                    <i class="bi bi-person-circle"></i>
+                                    Profile
+                                </a>
+                            </li>
+
+                            <li class="nav-item ms-2">
+                                <a th:href="@{/expenses}"
+                                   class="btn btn-outline-light px-3 py-2 rounded">
+                                    Expenses
+                                </a>
+                            </li>
+                            <li class="nav-item ms-2">
+                                <a th:href="@{/incomes}"
+                                   class="btn btn-outline-light px-3 py-2 rounded">
+                                    Income
+                                </a>
+                            </li>
+                            <li class="nav-item ms-2">
+                                <a th:href="@{/budgets}"
+                                   class="btn btn-outline-light px-3 py-2 rounded">
+                                    Budgets
+                                </a>
+                            </li>
+                            <li class="nav-item ms-2">
+                                <a href="/transactions"
+                                   class="btn btn-outline-light px-3 py-2 rounded fw-medium">
+                                    Transactions
+                                </a>
+                            </li>
+
+                            <!-- Logout -->
+                            <li class="nav-item ms-lg-3 ms-2">
+                                <form th:action="@{/logout}" method="post" class="d-inline">
+                                    <button type="submit"
+                                            class="btn btn-outline-danger px-4 py-2 rounded-pill d-flex align-items-center gap-2">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </th:block>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    </body>
+</html>

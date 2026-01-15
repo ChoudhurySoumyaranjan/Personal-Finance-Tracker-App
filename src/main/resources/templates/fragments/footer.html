@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+    <div class="bg-dark text-white text-center py-4 mt-5" th:fragment="footer">
+        <div class="container">
+            <p class="mb-2">© <span th:text="${#dates.year(#dates.createNow())}">2026</span> Finance Tracker • Bhubaneswar, India</p>
+            <small class="text-white-50">Made with passion for better financial habits</small>
+        </div>
+    </div>
+</body>
+</html>
